@@ -24,18 +24,27 @@ public class Aim : MonoBehaviour
     [SerializeField]
     Camera cam; // do przypisania kamery
 
+    [SerializeField]
+    private float verticalMouseSensivityLukauyi = 100f; // czulosc myszki stworzona dla rownowagi powodowanej przez Time.deltatime
+
+    [SerializeField]
+    private float horizontalMouseSensivityLukauyi = 50f;
+    private float xRotation = 0f;
+
+    
     // Start is called before the first frame update
     void Start()
     {
         rigidB = GetComponent<Rigidbody>(); // przypisywanie obiektu w tym wypadku Player
         cam = GetComponentInChildren<Camera>(); // przypisywanie kamery
+        Cursor.lockState = CursorLockMode.Locked; // zablokowanie myszki
         Cursor.visible = false; // zeby nie bylo widac kursora
-
     }
     // Update is called once per frame
-    void Update() // musimy odswiezac caly czas zeby sie rozgladac
+    void LateUpdate() // musimy odswiezac caly czas zeby sie rozgladac
     {
-        AimLogic();
+        //AimLogic();
+        AimLogicLukaiyVersion();
     }
 
     void AimLogic()
@@ -46,10 +55,26 @@ public class Aim : MonoBehaviour
 
         float _leftRightValue = Input.GetAxisRaw("Mouse X"); // musimy zebrac informacje o ruchu myszki w osi X
         float _upDownValue = _aimModifier * Input.GetAxisRaw("Mouse Y"); // musimy zebrac informacje o ruchu myszki w osi Y
+
         Vector3 _rotationX = new Vector3(_upDownValue, 0, 0); // tworzymy wektory po ktorych bedziemy sie poruszac
         Vector3 _rotationY = new Vector3(0, _leftRightValue, 0); // tworzymy wektory po ktorych bedziemy sie poruszac
 
         rigidB.MoveRotation(rigidB.rotation * Quaternion.Euler(_rotationY / horizontalMouseSensivity)); // nadawanie rotacji
         cam.transform.Rotate(_rotationX / verticalMouseSensivity); // i dawanie tych wartosci do kamery
     }
+
+    void AimLogicLukaiyVersion()
+    {
+        //Zbieranie danych z myszki
+        float mouseX = Input.GetAxis("Mouse X") * verticalMouseSensivityLukauyi * Time.deltaTime; 
+        float mouseY = Input.GetAxis("Mouse Y") * horizontalMouseSensivityLukauyi * Time.deltaTime;
+
+        xRotation -= mouseY; // odejmowanie by nie trzepalo - tak z doswiadczen przy plusie trzepalo kamera
+        xRotation = Mathf.Clamp(xRotation, -60f, 40f); // zablokowanie rotacji 60st w gore i 40 w dol
+
+        cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); // nadanie kamerze rotacji Vektorem 3d
+        rigidB.transform.Rotate(Vector3.up * mouseX);   //nadanie mozliwosci obracania postacia w prawo i w lewo
+    }
+
+
 }
