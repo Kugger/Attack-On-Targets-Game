@@ -9,11 +9,11 @@ It's a simple shooter game (First Person Shooter combined with Rail Shooter). Pl
 - [x] Camera movement (Kacper)
 - [x] Different points depending on target’s field (Kacper)
 - [x] Scoring (Kacper)
-- [ ] Player movement
-- [ ] Menu
-- [ ] HUD
-- [ ] Music & sounds effects
+- [x] Player movement (Łukasz)
+- [x] Menu (Yuliia & Łukasz)
+- [x] HUD (Kacper)
+- [x] Music & sounds effects (Kacper & Łukasz)
 - [x] Assets & models (Kacper & Alicja)
-- [ ] Levels
-- [ ] End result
-- [ ] Score table  
+- [x] Levels (Alicja)
+- [x] End result (Yuliia)
+- [x] Score table (Yuliia)
