@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ItemRotation : MonoBehaviour
 {
+    public float x = 0, y = 0, z = 0;
+
     void Update()
     {
-        transform.Rotate(new Vector3(75f, 0f, 0f) * Time.deltaTime);
+        transform.Rotate(new Vector3(x, y, z) * Time.deltaTime);
     }
 }
