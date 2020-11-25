@@ -45,6 +45,8 @@ public class Shoot : MonoBehaviour
 
     bool arrowSlotted = false; // do sprawdzania czy strzala jest na wyekwipowana
 
+    // public int iNumArrow = 0;
+
     // Start is called before the first frame update
     void Start() // wraz ze startem tworzymy strzale przy luku
     {
@@ -55,6 +57,13 @@ public class Shoot : MonoBehaviour
     void Update() // przy kazdym odswiezeniu sprawdzamy funkcje ShootLogic
     {
         ShootLogic();
+
+        /*
+        GameObject SlowDownTimePU2 = GameObject.Find("SlowDownTimePU2");
+        AddArrowsPowerUp numArrow = SlowDownTimePU2.GetComponent<AddArrowsPowerUp>();
+
+        int iNumArrow = numArrow.numberOfArrowsInt;
+        */
     }
 
     void SpawnArrow() // funkcja do spawnowania strzal przy luku
@@ -122,6 +131,9 @@ public class Shoot : MonoBehaviour
                 looseSound.Play();
 
                 drawSound.Stop();
+
+
+                // numberOfArrows = iNumArrow;
             }
 
             _bowSkin.SetBlendShapeWeight(0, pullAmount); // zmieniamy wyglad luku, czyli go wyginamy
